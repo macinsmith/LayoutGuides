@@ -55,13 +55,13 @@ class ViewController: UIViewController {
         referencesView.backgroundColor = .purple
         referencesView.translatesAutoresizingMaskIntoConstraints = false
         mySafeAreaView.addSubview(referencesView)
-//
-//        refInsetView = UIView(frame: .zero)
-//        refInsetView.backgroundColor = .lightGray
-//        refInsetView.translatesAutoresizingMaskIntoConstraints = false
-//        referencesView.addSubview(refInsetView)
-//
-//
+
+        refInsetView = UIView(frame: .zero)
+        refInsetView.backgroundColor = .lightGray
+        refInsetView.translatesAutoresizingMaskIntoConstraints = false
+        referencesView.addSubview(refInsetView)
+
+
 //        notesView = UIView(frame: .zero)
 //        notesView.backgroundColor = .green
 //        notesView.translatesAutoresizingMaskIntoConstraints = false
@@ -154,11 +154,11 @@ class ViewController: UIViewController {
         }
 
 
-//        refInsetView.topAnchor.constraint(equalTo: referencesView.topAnchor, constant: 40).isActive = true
-//        refInsetView.bottomAnchor.constraint(equalTo: referencesView.bottomAnchor, constant: -40).isActive = true
-//        refInsetView.leadingAnchor.constraint(equalTo: referencesView.leadingAnchor, constant: 40).isActive = true
-//        refInsetView.trailingAnchor.constraint(equalTo: referencesView.trailingAnchor, constant: -40).isActive = true
-//
+        refInsetView.topAnchor.constraint(equalTo: referencesView.topAnchor, constant: 40).isActive = true
+        refInsetView.bottomAnchor.constraint(equalTo: referencesView.bottomAnchor, constant: -40).isActive = true
+        refInsetView.leadingAnchor.constraint(equalTo: referencesView.leadingAnchor, constant: 40).isActive = true
+        refInsetView.trailingAnchor.constraint(equalTo: referencesView.trailingAnchor, constant: -40).isActive = true
+
 //        notesInsetView.topAnchor.constraint(equalTo: notesView.topAnchor, constant: 40).isActive = true
 //        notesInsetView.bottomAnchor.constraint(equalTo: notesView.bottomAnchor, constant: -40).isActive = true
 //        notesInsetView.leadingAnchor.constraint(equalTo: notesView.leadingAnchor, constant: 40).isActive = true
