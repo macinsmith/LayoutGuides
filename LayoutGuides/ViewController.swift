@@ -55,22 +55,22 @@ class ViewController: UIViewController {
         referencesView.backgroundColor = .purple
         referencesView.translatesAutoresizingMaskIntoConstraints = false
         mySafeAreaView.addSubview(referencesView)
-
-        refInsetView = UIView(frame: .zero)
-        refInsetView.backgroundColor = .lightGray
-        refInsetView.translatesAutoresizingMaskIntoConstraints = false
-        referencesView.addSubview(refInsetView)
-
-
-        notesView = UIView(frame: .zero)
-        notesView.backgroundColor = .green
-        notesView.translatesAutoresizingMaskIntoConstraints = false
-        mySafeAreaView.addSubview(notesView)
-
-        notesInsetView = UIView(frame: .zero)
-        notesInsetView.backgroundColor = .lightGray
-        notesInsetView.translatesAutoresizingMaskIntoConstraints = false
-        notesView.addSubview(notesInsetView)
+//
+//        refInsetView = UIView(frame: .zero)
+//        refInsetView.backgroundColor = .lightGray
+//        refInsetView.translatesAutoresizingMaskIntoConstraints = false
+//        referencesView.addSubview(refInsetView)
+//
+//
+//        notesView = UIView(frame: .zero)
+//        notesView.backgroundColor = .green
+//        notesView.translatesAutoresizingMaskIntoConstraints = false
+//        mySafeAreaView.addSubview(notesView)
+//
+//        notesInsetView = UIView(frame: .zero)
+//        notesInsetView.backgroundColor = .lightGray
+//        notesInsetView.translatesAutoresizingMaskIntoConstraints = false
+//        notesView.addSubview(notesInsetView)
 
 
     }
@@ -78,62 +78,91 @@ class ViewController: UIViewController {
 
 
     override func viewWillAppear(_ animated: Bool) {
-        layoutTheViews(DeviceInfo.Orientation.isPortrait)
+        layoutTheViews(with: view.frame.size)
     }
 
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        layoutTheViews(size.height > size.width)
+        layoutTheViews(with: size)
     }
 
-    func layoutTheViews(_ isPortrait:Bool) {
-        guard let view = self.view else { return }
-        print("will layout for \(isPortrait ? "portrait" : "landscape") orientation")
+    func layoutTheViews(with size:CGSize) {
+        guard let view = self.view, let mySafeAreaView = self.mySafeAreaView else { return }
+        let isPortrait = size.height > size.width
+        let mySafeAreaHeight = size.height - navHeight
+        let mySafeAreaWidth = size.width
+        print("will layout for \(isPortrait ? "portrait" : "landscape") orientation with size \(size), mySafeArea (WxH)= \(mySafeAreaWidth) x \(mySafeAreaHeight)")
         view.removeConstraints(view.constraints)
+        mySafeAreaView.removeConstraints(mySafeAreaView.constraints)
+        referencesView.removeConstraints(referencesView.constraints)
         if #available(iOS 11, *) {
-            print("safeArea = \(view.safeAreaLayoutGuide.layoutFrame)")
+//            print("safeArea = \(view.safeAreaLayoutGuide.layoutFrame)")
 
-            mySafeAreaView.topAnchor.constraint(equalTo: view.topAnchor, constant: navHeight).isActive = true
-            mySafeAreaView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0).isActive = true
-            mySafeAreaView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0).isActive = true
-            mySafeAreaView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0).isActive = true
+            mySafeAreaView.topAnchor.constraint(equalTo: mySafeAreaView.superview!.topAnchor, constant: navHeight).isActive = true
+            mySafeAreaView.leftAnchor.constraint(equalTo: mySafeAreaView.superview!.leftAnchor, constant: 0).isActive = true
+            mySafeAreaView.bottomAnchor.constraint(equalTo: mySafeAreaView.superview!.bottomAnchor, constant: 0).isActive = true
+            mySafeAreaView.rightAnchor.constraint(equalTo: mySafeAreaView.superview!.rightAnchor, constant: 0).isActive = true
+//            mySafeAreaView.widthAnchor.constraint(equalToConstant: mySafeAreaWidth)
+//            mySafeAreaView.heightAnchor.constraint(equalToConstant: mySafeAreaHeight)
+
+//            let views: [String: Any] = ["mySafeAreaView": mySafeAreaView]
+//            var allConstraints: [NSLayoutConstraint] = []
+//            let vertVF = "V:|-\(self.navHeight)-[mySafeAreaView(\(mySafeAreaHeight))]-|"
+//            let horizVF = "H:|-[mySafeAreaView(\(mySafeAreaWidth))]-|"
+//            print("vertVF = '\(vertVF)'")
+//
+//            let verticalMySafeAreaConstraint = NSLayoutConstraint.constraints(
+//                withVisualFormat: vertVF,
+//                metrics: nil,
+//                views: views)
+//            allConstraints += verticalMySafeAreaConstraint
+//
+//            let horizontalMySafeAreaConstraint = NSLayoutConstraint.constraints(
+//                withVisualFormat: horizVF,
+//                metrics: nil,
+//                views: views)
+//            allConstraints += horizontalMySafeAreaConstraint
+//            NSLayoutConstraint.activate(allConstraints)
 
             referencesView.topAnchor.constraint(equalTo: mySafeAreaView.topAnchor).isActive = true
             referencesView.leftAnchor.constraint(equalTo: mySafeAreaView.leftAnchor).isActive = true
 
-            notesView.bottomAnchor.constraint(equalTo: mySafeAreaView.bottomAnchor).isActive = true
-            notesView.rightAnchor.constraint(equalTo: mySafeAreaView.rightAnchor).isActive = true
 
+//            notesView.bottomAnchor.constraint(equalTo: mySafeAreaView.bottomAnchor).isActive = true
+//            notesView.rightAnchor.constraint(equalTo: mySafeAreaView.rightAnchor).isActive = true
+//
             if isPortrait {
                 referencesView.heightAnchor.constraint(equalTo: mySafeAreaView.heightAnchor, multiplier: 0.5).isActive = true
                 referencesView.rightAnchor.constraint(equalTo: mySafeAreaView.rightAnchor).isActive = true
-
-                notesView.heightAnchor.constraint(equalTo: mySafeAreaView.heightAnchor, multiplier: 0.5).isActive = true
-                notesView.leftAnchor.constraint(equalTo: mySafeAreaView.leftAnchor).isActive = true
+//
+//                notesView.heightAnchor.constraint(equalTo: mySafeAreaView.heightAnchor, multiplier: 0.5).isActive = true
+//                notesView.leftAnchor.constraint(equalTo: mySafeAreaView.leftAnchor).isActive = true
             } else {
+                //            referencesView.widthAnchor.constraint(equalToConstant: 768)
+                //            referencesView.heightAnchor.constraint(equalToConstant: 477)
                 referencesView.bottomAnchor.constraint(equalTo: mySafeAreaView.bottomAnchor).isActive = true
-                referencesView.widthAnchor.constraint(equalToConstant: mySafeAreaView.frame.width * 0.5).isActive = true
-
-                notesView.topAnchor.constraint(equalTo: mySafeAreaView.topAnchor).isActive = true
-                notesView.widthAnchor.constraint(equalToConstant: mySafeAreaView.frame.width * 0.5).isActive = true
+                referencesView.widthAnchor.constraint(equalTo: mySafeAreaView.widthAnchor, multiplier: 0.5).isActive = true
+//
+//                notesView.topAnchor.constraint(equalTo: mySafeAreaView.topAnchor).isActive = true
+//                notesView.widthAnchor.constraint(equalToConstant: mySafeAreaView.frame.width * 0.5).isActive = true
             }
 
 
         } else {
-            let standardSpacing: CGFloat = 8.0
-            referencesView.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor, constant: standardSpacing).isActive = true
-            bottomLayoutGuide.topAnchor.constraint(equalTo: referencesView.bottomAnchor, constant: standardSpacing).isActive = true
+//            let standardSpacing: CGFloat = 8.0
+//            referencesView.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor, constant: standardSpacing).isActive = true
+//            bottomLayoutGuide.topAnchor.constraint(equalTo: referencesView.bottomAnchor, constant: standardSpacing).isActive = true
         }
 
 
-        refInsetView.topAnchor.constraint(equalTo: referencesView.topAnchor, constant: 40).isActive = true
-        refInsetView.bottomAnchor.constraint(equalTo: referencesView.bottomAnchor, constant: -40).isActive = true
-        refInsetView.leadingAnchor.constraint(equalTo: referencesView.leadingAnchor, constant: 40).isActive = true
-        refInsetView.trailingAnchor.constraint(equalTo: referencesView.trailingAnchor, constant: -40).isActive = true
-
-        notesInsetView.topAnchor.constraint(equalTo: notesView.topAnchor, constant: 40).isActive = true
-        notesInsetView.bottomAnchor.constraint(equalTo: notesView.bottomAnchor, constant: -40).isActive = true
-        notesInsetView.leadingAnchor.constraint(equalTo: notesView.leadingAnchor, constant: 40).isActive = true
-        notesInsetView.trailingAnchor.constraint(equalTo: notesView.trailingAnchor, constant: -40).isActive = true
+//        refInsetView.topAnchor.constraint(equalTo: referencesView.topAnchor, constant: 40).isActive = true
+//        refInsetView.bottomAnchor.constraint(equalTo: referencesView.bottomAnchor, constant: -40).isActive = true
+//        refInsetView.leadingAnchor.constraint(equalTo: referencesView.leadingAnchor, constant: 40).isActive = true
+//        refInsetView.trailingAnchor.constraint(equalTo: referencesView.trailingAnchor, constant: -40).isActive = true
+//
+//        notesInsetView.topAnchor.constraint(equalTo: notesView.topAnchor, constant: 40).isActive = true
+//        notesInsetView.bottomAnchor.constraint(equalTo: notesView.bottomAnchor, constant: -40).isActive = true
+//        notesInsetView.leadingAnchor.constraint(equalTo: notesView.leadingAnchor, constant: 40).isActive = true
+//        notesInsetView.trailingAnchor.constraint(equalTo: notesView.trailingAnchor, constant: -40).isActive = true
 
 
 //        let background = UIView()
