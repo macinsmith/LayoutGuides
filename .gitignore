@@ -1,0 +1,45 @@
+# xcode noise
+*.mode1v3
+*.pbxuser
+*.perspective 
+*.perspectivev3
+*.pyc 
+*~.nib/
+build/*
+build-from-lib/*
+*.xcuserstate
+project.xcworkspace/
+xcuserdata/
+
+# osx noise
+.DS_Store
+profile
+.git/
+xcschememanagement.plist
+xcuserdata
+app.ipa
+.idea
+TestReport.json
+
+## Obj-C/Swift specific
+*.hmap
+*.ipa
+*.dsym
+*.zip
+
+#cocoapods
+Pods/
+
+# fastlane
+#
+# It is recommended to not store the screenshots in the git repo. Instead, use fastlane to re-generate the 
+# screenshots whenever they are needed.
+# For more information about the recommended setup visit:
+# https://github.com/fastlane/fastlane/blob/master/docs/Gitignore.md
+
+fastlane/report.xml
+fastlane/screenshots
+fastlane/test_output
+
+# slather
+html
