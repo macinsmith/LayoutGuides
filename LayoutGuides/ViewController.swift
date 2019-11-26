@@ -30,7 +30,9 @@ struct DeviceInfo {
 
 class ViewController: UIViewController {
     var referencesView: UIView!
+    var refInsetView: UIView!
     var notesView: UIView!
+    var notesInsetView: UIView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,10 +42,22 @@ class ViewController: UIViewController {
         referencesView.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(referencesView)
 
+        refInsetView = UIView(frame: .zero)
+        refInsetView.backgroundColor = .lightGray
+        refInsetView.translatesAutoresizingMaskIntoConstraints = false
+        referencesView.addSubview(refInsetView)
+
+
         notesView = UIView(frame: .zero)
         notesView.backgroundColor = .green
         notesView.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(notesView)
+
+        notesInsetView = UIView(frame: .zero)
+        notesInsetView.backgroundColor = .lightGray
+        notesInsetView.translatesAutoresizingMaskIntoConstraints = false
+        notesView.addSubview(notesInsetView)
+
         layoutTheViews()
 
     }
@@ -80,6 +94,17 @@ class ViewController: UIViewController {
             referencesView.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor, constant: standardSpacing).isActive = true
             bottomLayoutGuide.topAnchor.constraint(equalTo: referencesView.bottomAnchor, constant: standardSpacing).isActive = true
         }
+
+
+        refInsetView.topAnchor.constraint(equalTo: referencesView.topAnchor, constant: 40).isActive = true
+        refInsetView.bottomAnchor.constraint(equalTo: referencesView.bottomAnchor, constant: -40).isActive = true
+        refInsetView.leadingAnchor.constraint(equalTo: referencesView.leadingAnchor, constant: 40).isActive = true
+        refInsetView.trailingAnchor.constraint(equalTo: referencesView.trailingAnchor, constant: -40).isActive = true
+
+        notesInsetView.topAnchor.constraint(equalTo: notesView.topAnchor, constant: 40).isActive = true
+        notesInsetView.bottomAnchor.constraint(equalTo: notesView.bottomAnchor, constant: -40).isActive = true
+        notesInsetView.leadingAnchor.constraint(equalTo: notesView.leadingAnchor, constant: 40).isActive = true
+        notesInsetView.trailingAnchor.constraint(equalTo: notesView.trailingAnchor, constant: -40).isActive = true
 
 
 //        let background = UIView()
